@@ -1,0 +1,46 @@
+{
+	"name": "svelte-turn-page",
+	"version": "0.1.0",
+	"description": "Svelte component library for modern page flipping books.",
+	"type": "module",
+	"license": "SEE LICENSE IN license.txt",
+	"files": [
+		"dist",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*",
+		"src/lib",
+		"!src/lib/**/*.test.*",
+		"!src/lib/**/*.spec.*",
+		"README.md",
+		"license.txt"
+	],
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js",
+			"default": "./dist/index.js"
+		}
+	},
+	"svelte": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"package": "svelte-package",
+		"check": "svelte-check --tsconfig ./tsconfig.json",
+		"publint": "npm_config_cache=/tmp/svelte-turn-page-npm-cache publint",
+		"lint": "npm run check && npm run package && npm run publint",
+		"prepack": "npm run package"
+	},
+	"peerDependencies": {
+		"svelte": "^5.0.0"
+	},
+	"devDependencies": {
+		"@sveltejs/package": "^2.5.8",
+		"@sveltejs/vite-plugin-svelte": "^7.3.0",
+		"@tsconfig/svelte": "^5.0.8",
+		"publint": "^0.3.23",
+		"svelte": "^5.56.9",
+		"svelte-check": "^4.7.6",
+		"typescript": "^6.0.3",
+		"vite": "^8.2.1"
+	}
+}
