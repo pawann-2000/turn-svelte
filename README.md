@@ -57,11 +57,13 @@ This package expects Svelte 5 from the consuming application.
 
 ```sh
 npm run check
+npm run build
 npm run package
 npm run lint
 ```
 
-`npm run lint` runs Svelte checks, packages the library, and validates the package exports with `publint`.
+`npm run build` packages the Svelte source and adds ESM/CJS TypeScript bundles with `tsdown`.
+`npm run lint` runs Svelte checks, builds the library, and validates the package exports with `publint`.
 
 ## License
 
