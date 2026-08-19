@@ -12,6 +12,13 @@
 		"sourceMap": true,
 		"strict": true
 	},
-	"include": ["src/**/*.ts", "src/**/*.svelte", "svelte.config.js", "vite.config.ts"],
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.svelte",
+		"demo/**/*.ts",
+		"demo/**/*.svelte",
+		"svelte.config.js",
+		"vite.config.ts"
+	],
 	"exclude": ["dist", "node_modules"]
 }

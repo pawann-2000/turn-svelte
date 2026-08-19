@@ -142,11 +142,15 @@
 	});
 
 	$effect(() => {
-		instance?.size(numericWidth, numericHeight);
-	});
-
-	$effect(() => {
-		if (instance && instance.display() !== display) instance.display(display);
+		instance?.configure({
+			width: numericWidth,
+			height: numericHeight,
+			display,
+			gradients,
+			duration,
+			...(typeof cornerSize === 'number' ? { cornerSize } : {}),
+			...(corners ? { corners } : {})
+		});
 	});
 
 	$effect(() => {
@@ -179,146 +183,24 @@
 </div>
 
 <style>
+	/*
+	 * turn.js draws its fold entirely with inline transforms, so there is almost nothing to style
+	 * here. What matters is what must *not* be set: no `overflow` (the engine owns it, and a fold
+	 * has to be free to overhang the spine), no `contain`, and no `perspective` — the fold is a
+	 * flat rotation, and a perspective would shear it.
+	 */
 	.turn-book {
 		position: relative;
 		width: var(--turn-book-width);
 		height: var(--turn-book-height);
-		contain: layout paint;
 		touch-action: none;
 		user-select: none;
-		perspective: calc(var(--turn-book-width) * 1.2);
-		transform-style: preserve-3d;
-		overflow: hidden;
+		-webkit-user-select: none;
 	}
 
 	.turn-book :global(.turn-page) {
 		background: var(--turn-page-background, #fbf4e4);
 		background-size: 100% 100%;
 		box-sizing: border-box;
-		overflow: hidden;
-		backface-visibility: hidden;
-		box-shadow: 0 0 0 1px rgb(0 0 0 / 0.08);
-	}
-
-	.turn-book :global(.turn-page--left) {
-		border-right: 1px solid rgb(0 0 0 / 0.14);
-	}
-
-	.turn-book :global(.turn-page--right) {
-		border-left: 1px solid rgb(255 255 255 / 0.5);
-	}
-
-	.turn-book[data-gradients='true'] :global(.turn-page--left)::after,
-	.turn-book[data-gradients='true'] :global(.turn-page--right)::after {
-		content: '';
-		position: absolute;
-		inset: 0;
-		pointer-events: none;
-	}
-
-	.turn-book[data-gradients='true'] :global(.turn-page--left)::after {
-		background: linear-gradient(90deg, transparent 72%, rgb(0 0 0 / 0.16));
-	}
-
-	.turn-book[data-gradients='true'] :global(.turn-page--right)::after {
-		background: linear-gradient(90deg, rgb(0 0 0 / 0.12), transparent 28%);
-	}
-
-	.turn-book :global(.turn-page--leaving-forward.turn-page--right) {
-		animation: turn-page-forward-out var(--turn-duration) ease-in-out both;
-	}
-
-	.turn-book :global(.turn-page--entering-forward.turn-page--left) {
-		animation: turn-page-forward-in var(--turn-duration) ease-in-out both;
-	}
-
-	.turn-book :global(.turn-page--leaving-backward.turn-page--left) {
-		animation: turn-page-backward-out var(--turn-duration) ease-in-out both;
-	}
-
-	.turn-book :global(.turn-page--entering-backward.turn-page--right) {
-		animation: turn-page-backward-in var(--turn-duration) ease-in-out both;
-	}
-
-	.turn-book :global(.turn-page--single.turn-page--leaving-forward),
-	.turn-book :global(.turn-page--single.turn-page--leaving-backward) {
-		animation: turn-page-single-out var(--turn-duration) ease-in-out both;
-	}
-
-	.turn-book :global(.turn-page--single.turn-page--entering-forward),
-	.turn-book :global(.turn-page--single.turn-page--entering-backward) {
-		animation: turn-page-single-in var(--turn-duration) ease-in-out both;
-	}
-
-	@keyframes turn-page-forward-out {
-		from {
-			transform: rotateY(0deg);
-			opacity: 1;
-		}
-
-		to {
-			transform: rotateY(-92deg);
-			opacity: 0.62;
-		}
-	}
-
-	@keyframes turn-page-forward-in {
-		from {
-			transform: rotateY(92deg);
-			opacity: 0.62;
-		}
-
-		to {
-			transform: rotateY(0deg);
-			opacity: 1;
-		}
-	}
-
-	@keyframes turn-page-backward-out {
-		from {
-			transform: rotateY(0deg);
-			opacity: 1;
-		}
-
-		to {
-			transform: rotateY(92deg);
-			opacity: 0.62;
-		}
-	}
-
-	@keyframes turn-page-backward-in {
-		from {
-			transform: rotateY(-92deg);
-			opacity: 0.62;
-		}
-
-		to {
-			transform: rotateY(0deg);
-			opacity: 1;
-		}
-	}
-
-	@keyframes turn-page-single-out {
-		from {
-			transform: translateX(0);
-			opacity: 1;
-		}
-
-		to {
-			transform: translateX(-3%);
-			opacity: 0;
-		}
-	}
-
-	@keyframes turn-page-single-in {
-		from {
-			transform: translateX(3%);
-			opacity: 0;
-		}
-
-		to {
-			transform: translateX(0);
-			opacity: 1;
-		}
 	}
 </style>

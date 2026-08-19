@@ -1,17 +1,22 @@
 {
 	"name": "svelte-turn-page",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Svelte component library for modern page flipping books.",
 	"type": "module",
-	"license": "SEE LICENSE IN license.txt",
+	"license": "SEE LICENSE IN LICENSE.md",
+	"sideEffects": false,
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.js",
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/"
+	},
 	"files": [
 		"dist",
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*",
 		"README.md",
-		"license.txt"
+		"LICENSE.md"
 	],
 	"exports": {
 		".": {
@@ -52,12 +57,14 @@
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"scripts": {
+		"demo": "vite --host 127.0.0.1",
 		"build": "npm run package && tsdown",
 		"package": "svelte-package",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"publint": "npm_config_cache=/tmp/svelte-turn-page-npm-cache publint",
 		"lint": "npm run check && npm run build && npm run publint",
-		"prepack": "npm run build"
+		"prepack": "npm run build && node scripts/prepare-publish-manifest.mjs",
+		"postpack": "node scripts/restore-package-manifest.mjs"
 	},
 	"peerDependencies": {
 		"svelte": "^5.0.0"

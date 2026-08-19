@@ -29,6 +29,8 @@ export interface TurnBookEvent {
 	view: number[];
 	originalEvent?: unknown;
 	corner?: string;
+	/** Only on `start`: call it to refuse the fold, as turn.js's preventable event did. */
+	preventDefault?: () => void;
 }
 
 export interface TurnBookCallbacks {
@@ -51,6 +53,9 @@ export interface TurnBookApi {
 	range: (page?: number) => [number, number];
 	size: (width?: number, height?: number) => TurnSize;
 	display: (display?: TurnDisplay) => TurnDisplay;
+	configure: (options: Partial<TurnBookOptions>) => void;
+	resize: () => void;
+	update: () => void;
 	disable: (disabled?: boolean) => void;
 	stop: () => void;
 	animating: () => boolean;

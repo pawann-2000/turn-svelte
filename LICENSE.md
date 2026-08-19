@@ -2,6 +2,8 @@ turn.js 3rd release
 www.turnjs.com
 
 Copyright (c) 2012, Emmanuel Garcia
+Copyright (c) 2026, Pawan Narayan
+
 All rights reserved.
 
 Redistribution and use in source and binary forms,
@@ -11,7 +13,7 @@ that the following conditions are met:
 - Redistributions of source code must retain the above copyright notice,
   this list of conditions and the following disclaimer.
 
-- Any redistribution, use, or modification is done solely for personal 
+- Any redistribution, use, or modification is done solely for personal
   benefit and not for any commercial purpose or for monetary gain.
 
 THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ''AS IS'' AND
